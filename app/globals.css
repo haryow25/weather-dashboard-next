@@ -17,11 +17,32 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: linear-gradient(110deg, #383838 0%, rgba(158, 158, 158, 0) 71.82%);
+}
+
+.text-temperature {
+  background: linear-gradient(84deg, #fff -16.56%, rgba(255, 255, 255, 0) 118.43%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 80px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.sub-text-temperature {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.celc-temp {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
