@@ -1,7 +1,15 @@
 import create from "zustand";
 
-// Define your store
-const useSearch = create((set) => ({
+interface SearchState {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  errorMessage: string;
+  setErrorMessage: (message: string) => void;
+  loading: boolean;
+  setLoading: (isLoading: boolean) => void;
+}
+
+const useSearch = create<SearchState>((set) => ({
   searchQuery: "",
   setSearchQuery: (query) => set((state) => ({ searchQuery: query })),
   errorMessage: "",

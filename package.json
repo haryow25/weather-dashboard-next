@@ -19,6 +19,8 @@
     "zustand": "^4.5.1"
   },
   "devDependencies": {
+    "@types/node": "20.11.25",
+    "@types/react": "18.2.64",
     "autoprefixer": "^10.0.1",
     "daisyui": "^4.4.6",
     "eslint": "^8",
