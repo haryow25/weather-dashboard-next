@@ -10,7 +10,7 @@ const Content = () => {
 
   return (
     <div className="main-wrapper ">
-      <Header />
+      {/* <Header /> */}
       <TopContent />
       <BotContent />
     </div>
