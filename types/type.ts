@@ -1,3 +1,10 @@
+// types/weatherTypes.ts
+
+export interface LocationData {
+  lat: number;
+  lon: number;
+}
+
 export interface WeatherData {
   cityName: string;
   temperature: number;
@@ -9,7 +16,23 @@ export interface WeatherData {
   pressure: number;
 }
 
-export interface Location {
-  lat: number;
-  lon: number;
+export interface WeatherApiResponse {
+  name: string;
+  main: {
+    temp: number;
+    feels_like: number;
+    humidity: number;
+    pressure: number;
+  };
+  wind: {
+    speed: number;
+  };
+  sys: {
+    sunrise: number;
+    sunset: number;
+  };
+}
+
+export interface SearchCityProps {
+  onSearch: (city: string) => void;
 }
