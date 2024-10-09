@@ -1,21 +1,28 @@
 import create from "zustand";
+import { WeatherData, LocationData } from "@/hooks/weatherApi";
+import moment from "moment";
 
-interface SearchState {
-  searchQuery: string;
-  setSearchQuery: (query: string) => void;
-  errorMessage: string;
-  setErrorMessage: (message: string) => void;
-  loading: boolean;
-  setLoading: (isLoading: boolean) => void;
+interface WeatherState {
+  cityName: string;
+  currentTime: moment.Moment;
+  searchLocation: LocationData | null;
+  weatherData: WeatherData | null;
+  setCityName: (name: string) => void;
+  setCurrentTime: (time: moment.Moment) => void;
+  setSearchLocation: (location: LocationData | null) => void;
+  setWeatherData: (data: WeatherData | null) => void;
 }
 
-const useSearch = create<SearchState>((set) => ({
-  searchQuery: "",
-  setSearchQuery: (query) => set((state) => ({ searchQuery: query })),
-  errorMessage: "",
-  setErrorMessage: (message) => set((state) => ({ errorMessage: message })),
-  loading: false,
-  setLoading: (isLoading) => set((state) => ({ loading: isLoading })),
+const useWeatherStore = create<WeatherState>(set => ({
+  cityName: "",
+  currentTime: moment(),
+  searchLocation: null,
+  weatherData: null,
+  setCityName: (name: string) => set({ cityName: name }),
+  setCurrentTime: (time: moment.Moment) => set({ currentTime: time }),
+  setSearchLocation: (location: LocationData | null) =>
+    set({ searchLocation: location }),
+  setWeatherData: (data: WeatherData | null) => set({ weatherData: data }),
 }));
 
-export default useSearch;
+export default useWeatherStore;

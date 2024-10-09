@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import BotContent from "./BotContent";
-import TopContent from "./TopContent";
-import Header from "../Header/Header";
+import { BotContent } from "../Templates/BotContent";
+import { TopContent } from "../Templates/TopContent";
+import { Header } from "../Organisms/Header";
 
 // Explicitly define the type of the state variables
 const Content = () => {
@@ -10,7 +10,7 @@ const Content = () => {
 
   return (
     <div className="main-wrapper ">
-      {/* <Header /> */}
+      <Header />
       <TopContent />
       <BotContent />
     </div>

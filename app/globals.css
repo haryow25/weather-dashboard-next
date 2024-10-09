@@ -2,30 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  background: linear-gradient(110deg, #383838 0%, rgba(158, 158, 158, 0) 71.82%);
+  background: linear-gradient(
+    110deg,
+    #383838 0%,
+    rgba(158, 158, 158, 0) 71.82%
+  );
+  font-family: "Poppins";
+  height: 100vh;
 }
 
 .text-temperature {
-  background: linear-gradient(84deg, #fff -16.56%, rgba(255, 255, 255, 0) 118.43%);
+  background: linear-gradient(
+    84deg,
+    #fff -16.56%,
+    rgba(255, 255, 255, 0) 118.43%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 80px;
+
   font-style: normal;
   font-weight: 700;
   line-height: normal;

@@ -1,9 +1,9 @@
-"use client";
-
 import { useEffect } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import moment from "moment";
+import useWeatherStore from "@/store/useWeatherStore";
+import { useGeoLocation } from "@/hooks/getLocation";
 
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -17,7 +17,7 @@ export interface WeatherData {
   sunset?: string;
   pressure?: number;
   currentWeather?: string;
-  weatherImage?: string; // Changed to `string` for SVG path
+  weatherImage?: string;
 }
 
 export interface LocationData {
@@ -28,34 +28,44 @@ export interface LocationData {
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 const customIconMap: Record<string, string> = {
-  "01d": "/weather-icon/clear 1.svg", // Clear sky (day)
-  "01n": "/weather-icon/clear-night.svg", // Clear sky (night)
-  "02d": "/weather-icon/partly-cloudy-day.svg", // Few clouds (day)
-  "02n": "/weather-icon/partly-cloudy-night.svg", // Few clouds (night)
+  "01d": "/weather-icon/clear 1.svg",
+  "01n": "/weather-icon/clear-night.svg",
+  "02d": "/weather-icon/partly-cloudy-day.svg",
+  "02n": "/weather-icon/partly-cloudy-night.svg",
   "03d": "/weather-icon/clouds 1.svg",
   "03n": "/weather-icon/clouds.svg",
-  "04d": "/weather-icon/clouds 1.svg", // Broken clouds
+  "04d": "/weather-icon/clouds 1.svg",
   "04n": "/weather-icon/broken-clouds.svg",
-  "09d": "/weather-icon/shower-rain.svg", // Shower rain
+  "09d": "/weather-icon/shower-rain.svg",
   "09n": "/weather-icon/shower-rain.svg",
-  "10d": "/weather-icon/rain-day.svg", // Rain (day)
-  "10n": "/weather-icon/rain-night.svg", // Rain (night)
-  "11d": "/weather-icon/thunderstorm.svg", // Thunderstorm
+  "10d": "/weather-icon/rain-day.svg",
+  "10n": "/weather-icon/rain-night.svg",
+  "11d": "/weather-icon/thunderstorm.svg",
   "11n": "/weather-icon/thunderstorm.svg",
-  "13d": "/weather-icon/snow.svg", // Snow
+  "13d": "/weather-icon/snow.svg",
   "13n": "/weather-icon/snow.svg",
-  "50d": "/weather-icon/mist.svg", // Mist
+  "50d": "/weather-icon/mist.svg",
   "50n": "/weather-icon/mist.svg",
-  // Add all other icon mappings...
 };
 
 const getCustomIconUrl = (openWeatherIconCode: string): string => {
-  return customIconMap[openWeatherIconCode] || "/weather-icon/default.svg"; // Fallback to default icon if not found
+  return customIconMap[openWeatherIconCode] || "/weather-icon/default.svg";
 };
 
-export const useWeatherApi = (location: LocationData | null) => {
-  const url = location
-    ? `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}`
+export const useWeatherApi = () => {
+  const { searchLocation, setWeatherData, setCurrentLocation } =
+    useWeatherStore();
+  const { location, loading: geoLoading, error: geoError } = useGeoLocation();
+
+  useEffect(() => {
+    if (location && !searchLocation) {
+      setCurrentLocation(location);
+    }
+  }, [location, searchLocation, setCurrentLocation]);
+  const activeLocation = searchLocation || location;
+
+  const url = activeLocation
+    ? `https://api.openweathermap.org/data/2.5/weather?lat=${activeLocation.lat}&lon=${activeLocation.lon}&appid=${API_KEY}&units=metric`
     : null;
 
   const { data, error, isValidating, mutate } = useSWR(url, fetcher, {
@@ -63,8 +73,9 @@ export const useWeatherApi = (location: LocationData | null) => {
     shouldRetryOnError: false,
   });
 
-  const processedData: WeatherData | null = data
-    ? {
+  useEffect(() => {
+    if (data) {
+      const processedData: WeatherData = {
         cityName: data.name,
         temperature: data.main.temp,
         feelsLike: data.main.feels_like,
@@ -75,8 +86,10 @@ export const useWeatherApi = (location: LocationData | null) => {
         pressure: data.main.pressure,
         currentWeather: data.weather[0].main,
         weatherImage: getCustomIconUrl(data.weather[0].icon),
-      }
-    : null;
+      };
+      setWeatherData(processedData);
+    }
+  }, [data, setWeatherData]);
 
   useEffect(() => {
     if (error) {
@@ -85,7 +98,6 @@ export const useWeatherApi = (location: LocationData | null) => {
   }, [error]);
 
   return {
-    weatherData: processedData,
     isLoading: !error && !data,
     error: error ? "Failed to fetch weather data" : null,
     refetch: mutate,
