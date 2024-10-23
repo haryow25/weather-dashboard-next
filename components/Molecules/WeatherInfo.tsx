@@ -13,13 +13,13 @@ export const WeatherInfo: React.FC<WeatherInfoProps> = ({
   value,
   label,
 }) => (
-  <div className="flex items-center flex-col gap-1 sm:gap-2">
+  <div className="flex items-center flex-col gap-1 sm:gap-2 py-3">
     <Icon
       src={icon}
       width={40}
       height={40}
       alt={label}
-      className="w-8 h-8 sm:w-12 sm:h-12"
+      className="w-[60px] h-[50px]"
     />
     <Text className="text-center text-base sm:text-xl font-semibold">
       {value}

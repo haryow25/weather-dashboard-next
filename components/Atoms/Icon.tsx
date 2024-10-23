@@ -23,7 +23,7 @@ export const Icon: React.FC<IconProps> = ({
     width={width}
     height={height}
     alt={alt}
-    className={`w-auto h-auto ${className}`}
+    className={` ${className}`}
     style={style}
   />
 );

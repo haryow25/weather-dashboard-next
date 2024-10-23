@@ -12,7 +12,7 @@ export const LocationTime: React.FC<LocationTimeProps> = ({ weatherData }) => {
   const cityName = weatherData?.cityName;
   const { currentTime } = useWeatherStore();
   return (
-    <div className="location-time bg-[#444] h-full rounded-xl sm:rounded-2xl text-white flex flex-col justify-center gap-4 sm:gap-10 p-3 sm:p-4 shadow-lg">
+    <div className="location-time bg-[#444] h-full rounded-xl sm:rounded-2xl text-white flex flex-col justify-center gap-4 sm:gap-10 p-3 sm:p-4 shadow-lg min-h-full">
       <Text className="text-center text-xl sm:text-2xl md:text-4xl lg:text-6xl font-bold">
         {cityName || "Location Name"}
       </Text>

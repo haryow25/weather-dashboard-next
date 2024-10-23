@@ -27,29 +27,26 @@ export interface LocationData {
 
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
-const customIconMap: Record<string, string> = {
-  "01d": "/weather-icon/clear 1.svg",
-  "01n": "/weather-icon/clear-night.svg",
-  "02d": "/weather-icon/partly-cloudy-day.svg",
-  "02n": "/weather-icon/partly-cloudy-night.svg",
-  "03d": "/weather-icon/clouds 1.svg",
-  "03n": "/weather-icon/clouds.svg",
-  "04d": "/weather-icon/clouds 1.svg",
-  "04n": "/weather-icon/broken-clouds.svg",
-  "09d": "/weather-icon/shower-rain.svg",
-  "09n": "/weather-icon/shower-rain.svg",
-  "10d": "/weather-icon/rain-day.svg",
-  "10n": "/weather-icon/rain-night.svg",
-  "11d": "/weather-icon/thunderstorm.svg",
-  "11n": "/weather-icon/thunderstorm.svg",
-  "13d": "/weather-icon/snow.svg",
-  "13n": "/weather-icon/snow.svg",
-  "50d": "/weather-icon/mist.svg",
-  "50n": "/weather-icon/mist.svg",
-};
+const getCustomIconUrl = (weatherId: number): string => {
+  const customIconMap: Record<number, string> = {
+    800: "/weather-icon/clear-1.svg", // Clear sky
+    801: "/weather-icon/clouds-1.svg", // Few clouds
+    802: "/weather-icon/clouds-1.svg", // Scattered clouds
+    803: "/weather-icon/clouds-1.svg", // Broken clouds
+    804: "/weather-icon/broken-clouds.svg", // Overcast clouds
+    520: "/weather-icon/shower-rain.svg", // Shower rain
+    500: "/weather-icon/rain-1.svg", // Rain
+    501: "/weather-icon/rain-1.svg", // Rain
+    200: "/weather-icon/thunderstorm.svg", // Thunderstorm
+    600: "/weather-icon/snow.svg", // Snow
+    701: "/weather-icon/mist-1.svg", // Mist
+    721: "/weather-icon/mist-1.svg", // Mist
+    // Add more mappings as needed
+  };
 
-const getCustomIconUrl = (openWeatherIconCode: string): string => {
-  return customIconMap[openWeatherIconCode] || "/weather-icon/default.svg";
+  // Return the custom icon URL, or a default icon if the ID is not in the map
+
+  return customIconMap[weatherId] || "/weather-icon/default.svg";
 };
 
 export const useWeatherApi = () => {
@@ -75,18 +72,27 @@ export const useWeatherApi = () => {
 
   useEffect(() => {
     if (data) {
+      const timezoneOffset = data.timezone; // Time zone offset in seconds
+      const convertToLocalTime = (unixTimestamp: number) => {
+        // Create a new Date object using the Unix timestamp
+        const utcTime = moment.unix(unixTimestamp);
+        // Adjust the time using the time zone offset
+        return utcTime.utcOffset(timezoneOffset / 60).format("HH:mm");
+      };
+
       const processedData: WeatherData = {
         cityName: data.name,
         temperature: data.main.temp,
         feelsLike: data.main.feels_like,
         humidity: data.main.humidity,
         windSpeed: data.wind.speed,
-        sunrise: moment.unix(data.sys.sunrise).format("HH:mm"),
-        sunset: moment.unix(data.sys.sunset).format("HH:mm"),
+        sunrise: convertToLocalTime(data.sys.sunrise), // Adjust sunrise to local time
+        sunset: convertToLocalTime(data.sys.sunset), // Adjust sunset to local time,
         pressure: data.main.pressure,
         currentWeather: data.weather[0].main,
-        weatherImage: getCustomIconUrl(data.weather[0].icon),
+        weatherImage: getCustomIconUrl(data.weather[0].id),
       };
+      console.log(processedData);
       setWeatherData(processedData);
     }
   }, [data, setWeatherData]);

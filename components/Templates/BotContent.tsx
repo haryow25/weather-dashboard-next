@@ -3,8 +3,6 @@ import { FiveDayForecast } from "../Organisms/FiveDayForecast";
 import { HourlyForecast } from "../Organisms/HourlyForecast";
 import {
   useWeatherData,
-  fetchHourlyForecast,
-  getCurrentPosition,
   HourlyForecast as HourlyForecastType,
 } from "@/hooks/forecastApi";
 
@@ -25,7 +23,7 @@ export const BotContent: React.FC = () => {
   }
 
   return (
-    <div className="bot-main grid grid-cols-1 md:grid-cols-12 gap-3 my-3 px-2 sm:px-4">
+    <div className="bot-main grid grid-cols-1 md:grid-cols-12 gap-10 my-3 px-2 sm:px-4">
       {weatherData && weatherData.list && (
         <div className="col-span-1 md:col-span-4">
           <FiveDayForecast forecastData={weatherData.list} />
@@ -33,7 +31,7 @@ export const BotContent: React.FC = () => {
       )}
       {weatherData && weatherData.list && (
         <div className="col-span-1 md:col-span-8">
-          <HourlyForecast hourlyData={weatherData.list.slice(0, 4)} />
+          <HourlyForecast hourlyData={weatherData.list.slice(0, 5)} />
         </div>
       )}
     </div>

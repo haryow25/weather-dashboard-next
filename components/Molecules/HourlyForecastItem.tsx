@@ -24,7 +24,7 @@ export const HourlyForecastItem: React.FC<HourlyForecastItemProps> = ({
     </Text>
     <Icon
       src={`https://openweathermap.org/img/w/${icon}.png`}
-      alt="weather icon"
+      alt={icon}
       width={60}
       height={60}
       className="w-12 h-12 sm:w-16 sm:h-16"
@@ -32,7 +32,7 @@ export const HourlyForecastItem: React.FC<HourlyForecastItemProps> = ({
     <Text className="text-base sm:text-xl">{temperature}°C</Text>
     <div className="text-base sm:text-xl relative flex items-center flex-col gap-1 sm:gap-2 text-center">
       <Icon
-        src="/weather-icon/navigation 1.svg"
+        src="/weather-icon/navigation-1.svg"
         alt="wind icon"
         width={40}
         height={40}

@@ -36,7 +36,7 @@ export const TopContent: React.FC = () => {
   if (!weatherData) return null;
 
   return (
-    <div className="top-main grid grid-cols-1 sm:grid-cols-12 gap-3 p-2 sm:p-4">
+    <div className="top-main grid grid-cols-1 sm:grid-cols-12 gap-10 p-2 sm:p-4">
       <div className="col-span-1 sm:col-span-5">
         <LocationTime weatherData={weatherData} />
       </div>

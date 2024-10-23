@@ -109,7 +109,7 @@ export const Header: React.FC = () => {
         <div className="col-span-2 sm:col-span-3 ml-auto">
           <Button
             loading={loading}
-            icon="/weather-icon/current location icon.svg"
+            icon="/weather-icon/current-location-icon.svg"
             iconAlt="search"
             onClick={handleSearch}
           >

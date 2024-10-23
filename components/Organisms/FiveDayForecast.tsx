@@ -10,7 +10,7 @@ export const FiveDayForecast: React.FC<FiveDayForecastProps> = ({
   forecastData,
 }) => (
   <div
-    className="five-day-forecast col-span-12 md:col-span-6 lg:col-span-4 bg-[#444] rounded-2xl sm:rounded-[30px] p-2 sm:p-3 text-white"
+    className="five-day-forecast col-span-12 md:col-span-6 lg:col-span-4 bg-[#D9D9D9] dark:bg-[#444] rounded-2xl sm:rounded-[30px] p-2 sm:p-3 text-white min-h-full"
     style={{ filter: "drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.50))" }}
   >
     <Text className="five-day-forecast-title p-2 sm:p-3 flex justify-center font-bold text-xl sm:text-2xl lg:text-3xl">
