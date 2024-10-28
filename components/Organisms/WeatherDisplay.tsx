@@ -32,15 +32,13 @@ export const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-[#444] rounded-[20px] sm:rounded-[30px] p-2 sm:p-3 w-full min-h-full">
       <div className=" weather-temperature mb-2 sm:mb-3 py-3">
-        <Text className="text-temperature text-2xl md:text-4xl lg:text-7xl">
+        <Text className="text-temperature text-center sm:text-left text-7xl md:text-4xl lg:text-7xl">
           {formatTemperature(temperature)}
         </Text>
-        <Text className="sub-text-temperature ">
-          <span className="text-sm md:text-base lg:text-xl">
-            Feels like: {formatTemperature(feelsLike)}
-          </span>
+        <Text className="text-[#ffffffcc] text-center sm:text-left md:text-base lg:text-xl text-xl">
+          Feels like: {formatTemperature(feelsLike)}
         </Text>
-        <div className="flex pt-5 sm:flex-col">
+        <div className="flex pt-5 sm:flex-col justify-center gap-5 sm:justify-start sm:gap-0">
           <SunriseSunset
             title="Sunrise"
             time={sunrise}
@@ -57,11 +55,11 @@ export const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
         <div className="text-center text-xl sm:text-2xl font-semibold text-white">
           {weatherImage && (
             <Icon
-              src={weatherImage}
+              src={`https://openweathermap.org/img/wn/${weatherImage}@4x.png`}
               width={270}
               height={270}
               alt={currentWeather || "Weather icon"}
-              className="mx-auto w-[270px] h-[270px] "
+              className="mx-auto"
             />
           )}
           <Text>{currentWeather}</Text>

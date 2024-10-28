@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import moment from "moment";
 import { WeatherData, LocationData } from "@/hooks/weatherApi";
 import { ForecastData } from "@/hooks/forecastApi"; // Assuming ForecastData is already defined in the hooks

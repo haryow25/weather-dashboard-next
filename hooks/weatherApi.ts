@@ -90,9 +90,8 @@ export const useWeatherApi = () => {
         sunset: convertToLocalTime(data.sys.sunset), // Adjust sunset to local time,
         pressure: data.main.pressure,
         currentWeather: data.weather[0].main,
-        weatherImage: getCustomIconUrl(data.weather[0].id),
+        weatherImage: data.weather[0].icon,
       };
-      console.log(processedData);
       setWeatherData(processedData);
     }
   }, [data, setWeatherData]);

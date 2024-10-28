@@ -16,6 +16,7 @@ export interface ForecastData {
     };
     weather: {
       icon: string;
+      description: string;
     }[];
   }[];
 }
@@ -150,17 +151,17 @@ export const useFetchHourlyForecast = async () => {
     if (data) {
       // Process and slice the data to return only the first 4 entries
       const processedData = data.list.slice(0, 5).map(
-        (item: any): ForecastData => ({
+        (item: any): HourlyForecast => ({
           dt: item.dt,
           dt_txt: moment(item.dt_txt).format("HH:mm"),
           main: {
-            temp: item.main.temp,
+            temp: Math.round(item.main.temp),
           },
           weather: item.weather.map((weatherItem: any) => ({
             id: weatherItem.id,
             main: weatherItem.main,
             description: weatherItem.description,
-            icon: getCustomIconUrl(data.weather[0].id),
+            icon: getCustomIconUrl(item.weather[0].id),
           })),
           wind: {
             speed: item.wind.speed,

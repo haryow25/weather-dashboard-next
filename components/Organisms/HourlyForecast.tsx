@@ -16,7 +16,7 @@ export const HourlyForecast: React.FC<HourlyForecastProps> = ({
     <Text className="flex items-center justify-center text-3xl text-white font-bold">
       Hourly Forecast:
     </Text>
-    <div className="list-hourly-forecast flex flex-wrap justify-center gap-3 my-3 text-white font-bold">
+    <div className="list-hourly-forecast grid grid-cols-1  md:grid-cols-2 lg:grid-cols-5 gap-3 my-3 mx-5 text-white font-bold">
       {hourlyData.map((hour, index) => (
         <HourlyForecastItem
           key={index}

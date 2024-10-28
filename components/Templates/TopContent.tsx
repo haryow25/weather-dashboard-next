@@ -37,10 +37,10 @@ export const TopContent: React.FC = () => {
 
   return (
     <div className="top-main grid grid-cols-1 sm:grid-cols-12 gap-10 p-2 sm:p-4">
-      <div className="col-span-1 sm:col-span-5">
+      <div className="col-span-1 sm:col-span-6 lg:col-span-5">
         <LocationTime weatherData={weatherData} />
       </div>
-      <div className="col-span-1 sm:col-span-7">
+      <div className="col-span-1 sm:col-span-6 lg:col-span-7">
         <WeatherDisplay weatherData={weatherData} />
       </div>
     </div>
